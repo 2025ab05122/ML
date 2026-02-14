@@ -12,7 +12,6 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
-# Loading dataset
 df = pd.read_csv("data/bank.csv", sep=';')
 
 df['y'] = df['y'].map({'yes':1, 'no':0})
@@ -28,7 +27,6 @@ test_df.to_csv("data/test.csv", index=False)
 train_df_encoded = pd.get_dummies(train_df, drop_first=True)
 test_df_encoded = pd.get_dummies(test_df, drop_first=True)
 
-# Align columns
 train_df_encoded, test_df_encoded = train_df_encoded.align(
     test_df_encoded,
     join='left',
@@ -46,15 +44,12 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Create models folder
 if not os.path.exists("models"):
     os.makedirs("models")
 
-# Save scaler
 with open("models/scaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 
-# Save feature columns (VERY IMPORTANT for Streamlit)
 with open("models/feature_columns.pkl", "wb") as f:
     pickle.dump(X_train.columns.tolist(), f)
 

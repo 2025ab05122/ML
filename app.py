@@ -16,9 +16,7 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
-# ==========================================
 # Page Configuration
-# ==========================================
 
 st.set_page_config(
     page_title="Bank Marketing Classification",
@@ -34,9 +32,7 @@ st.markdown(
 )
 st.markdown("---")
 
-# ==========================================
 # Load Saved Models
-# ==========================================
 
 @st.cache_resource
 def load_models():
@@ -54,9 +50,7 @@ def load_models():
 
 models, scaler, feature_columns = load_models()
 
-# ==========================================
 # Download Test Dataset
-# ==========================================
 
 st.subheader("Download Test Dataset")
 
@@ -73,9 +67,7 @@ else:
 
 st.markdown("---")
 
-# ==========================================
 # Upload Dataset
-# ==========================================
 
 st.subheader("Upload Test Dataset")
 
@@ -108,9 +100,7 @@ if uploaded_file is not None:
     X = X_encoded
     st.markdown("---")
 
-    # ==========================================
     # Model Selection
-    # ==========================================
 
     st.subheader("Select Model")
 
@@ -135,9 +125,7 @@ if uploaded_file is not None:
     else:
         y_prob = y_pred
 
-    # ==========================================
     # Evaluation Metrics
-    # ==========================================
 
     accuracy = accuracy_score(y, y_pred)
     auc = roc_auc_score(y, y_prob)
@@ -160,9 +148,7 @@ if uploaded_file is not None:
 
     st.markdown("---")
 
-    # ==========================================
     # Confusion Matrix
-    # ==========================================
 
     st.subheader("Confusion Matrix")
 
