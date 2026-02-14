@@ -96,8 +96,16 @@ if uploaded_file is not None:
     y = df["y"]
 
     # Ensure correct feature alignment
-    X = X.reindex(columns=feature_columns, fill_value=0)
+    if y.dtype == object:
+        y = y.map({'yes': 1, 'no': 0})
 
+    # Apply one-hot encoding
+    X_encoded = pd.get_dummies(X, drop_first=True)
+
+    # Align with training columns
+    X_encoded = X_encoded.reindex(columns=feature_columns, fill_value=0)
+
+    X = X_encoded
     st.markdown("---")
 
     # ==========================================
